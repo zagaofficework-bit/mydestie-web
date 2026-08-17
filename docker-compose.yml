@@ -6,6 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: placefinder_app
+    restart: always
+    command: apache2-foreground
     ports:
       - "8080:80"
     volumes:
@@ -31,7 +33,7 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
-      # Automatically imports your database schema on first container startup:
+      # Automatically initializes schema on first run
       - ./install/database.sql:/docker-entrypoint-initdb.d/database.sql
 
 volumes:
